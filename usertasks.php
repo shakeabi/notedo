@@ -1,5 +1,8 @@
 <?php
-  session_start();
+include_once('connect.php');
+include_once('functions.php');
+session_start();
+if(!isset($_SESSION['curr_id'])){header("Location: index.php");}
 
  ?>
 
@@ -17,44 +20,36 @@
             <div class="col-md-8">
 
                 <h1 class="page-header">
-                    <?php echo "{$_SESSION['username']}'s Tasks";?>
+                    <?php echo "{$_SESSION['curr_username']}'s Task Lists";?>
                 </h1>
-
+<!-- //////////////////////////////////////////////////////////////////////// -->
                 <?php
-                  $table = $_SESSION['id'].'notes';
-                  $query = "SELECT * FROM $table";
-                  $result = $connection->query($query);
+                  $table = $_SESSION['curr_id'].'task_lists';
 
+                  $query = "SELECT * FROM $table ORDER BY editTime DESC ";
+                  $result = $connection->query($query);
+                  confirmQuery($result);
                   while($row = $result->fetch_assoc()){
-                    $note_title     = $row['title'];
-                    $note_content   = $row['noteContent'];
-                    $note_priority  = $row['priority'];
-                    $note_label     = $row['labels'];
-                    $note_image     = $row['imgPath'];
-                    $note_e_time    = $row['editTime'];
-                    $note_c_time    = $row['createTime'];
+                    $task_list_title     = $row['listName'];
+                    $task_list_e_time    = $row['editTime'];
+                    $task_list_c_time    = $row['createTime'];
                 ?>
                     <!-- Note -->
                     <h2>
-                        <a href="#"><?php echo $note_title; ?></a>
+                        <a href="#"><?php echo $task_list_title; ?></a>
                     </h2>
-                    <p class="lead">
-                        by <a href="index.php">Priority: <?php echo $note_priority; ?></a>
-                    </p>
-                    <p><span class="glyphicon glyphicon-time"></span> Created on <?php echo $note_c_time; ?></p><br>
-                    <p><span class="glyphicon glyphicon-time"></span> Edited on <?php echo $note_e_time; ?></p>
+                    <p><span class="glyphicon glyphicon-time"></span> Created on <?php echo $task_list_c_time; ?></p>
+                    <p><span class="glyphicon glyphicon-time"></span> Edited on <?php echo $task_list_e_time; ?></p>
                     <hr>
-                    <img class="img-responsive" src="<?php echo "uploads/" . $note_image; ?>" alt="">
-                    <hr>
-                    <p><?php echo $note_content; ?></p>
-                    <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <!-- <p><?php //echo $note_content; ?></p> -->
+                    <!-- <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> -->
 
                     <hr>
                 <?php
                   }
 
                 ?>
-
+<!-- //////////////////////////////////////////////////////////////////////// -->
                 <!-- Second Task Post -->
                 <h2>
                     <a href="#">Task Post Title</a>
@@ -87,15 +82,6 @@
 
                 <hr>
 
-                <!-- Pager -->
-                <ul class="pager">
-                    <li class="previous">
-                        <a href="#">&larr; Older</a>
-                    </li>
-                    <li class="next">
-                        <a href="#">Newer &rarr;</a>
-                    </li>
-                </ul>
 
             </div>
 

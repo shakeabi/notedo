@@ -1,9 +1,11 @@
 <?php
   include_once("create.php");
+  include_once("functions.php");
   session_start();
 
   if(!isset($_SESSION['info'])){$_SESSION['info']='';}
   if(!isset($_SESSION['info_l'])){$_SESSION['info_l']='';}
+  if(isset($_SESSION['curr_id'])){redirect('usernotes.php');}
 
     // session_unset();
     // session_destroy();

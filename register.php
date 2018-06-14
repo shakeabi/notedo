@@ -55,17 +55,15 @@
       $connection->query($query);
 
 
-      $tableName_tasks = $db_id."tasks";
+      $tableName_tasks = $db_id."task_lists";
       $query = "CREATE TABLE IF NOT EXISTS $tableName_tasks(
       		id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      		checked VARCHAR(200) NOT NULL,
-      		taskContent VARCHAR(8000) NOT NULL,
-      		priority INT(11) NOT NULL,
+          listName VARCHAR(1000) NOT NULL,
       		editTime VARCHAR(1000) NOT NULL,
       		createTime VARCHAR(1000) NOT NULL
       		)";
       $connection->query($query);
-      
+
       if($flag == 1){
         $flag = 0;
         $_SESSION['curr_id'] = $db_id;

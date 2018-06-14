@@ -1,3 +1,7 @@
+<?php
+include_once('connect.php');
+ ?>
+
 <div class="col-md-4">
 
     <!-- Blog Search Well -->
@@ -8,8 +12,8 @@
 
     <!-- Side Widget Well -->
     <div class="well">
-        <h4>Filter:</h4>
-        <form action="" method="post" enctype="multipart/form-data">
+        <h4>Sort:</h4>
+        <form action="" method="get" enctype="multipart/form-data">
           <select name="filter" class="form-control" id="">
 
              <option value='time'>Newest First</option>
@@ -19,7 +23,7 @@
           <br>
 
           <div class="form-group">
-             <input class="btn btn-primary" type="submit" name="create_note" value="Filter">
+             <button type="submit" class="btn btn-primary">Sort</button>
          </div>
 
         </form>
@@ -32,26 +36,25 @@
         <div class="row">
             <div class="col-lg-12">
                 <ul class="list-unstyled">
-                    <li><a href="#">Category Name<span class="label label-default">New</span></a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
+
+                  <?php
+                    $table = $_SESSION['curr_id'].'notes';
+
+                    $query = "SELECT DISTINCT labels FROM $table ORDER BY editTime DESC";
+                    $result = $connection->query($query);
+
+                    while($row = $result->fetch_assoc()){
+                      $note_label  = $row['labels'];
+                  ?>
+                      <li><a href="usernotes.php?label=<?php echo $note_label;?>"><span class="label label-default"><?php echo $note_label; ?></span></a>
+                      </li>
+
+                  <?php
+                    }
+
+                  ?>
+
+
                 </ul>
             </div>
 
