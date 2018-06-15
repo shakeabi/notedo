@@ -3,7 +3,7 @@ include_once('connect.php');
 include_once('functions.php');
 session_start();
 if(!isset($_SESSION['curr_id'])){header("Location: index.php");}
-
+$flag=0;
  ?>
 
 <?php include_once('includes_t/header.php') ?>
@@ -11,7 +11,7 @@ if(!isset($_SESSION['curr_id'])){header("Location: index.php");}
     <!-- Navigation -->
 <?php include_once('includes_t/navigation.php') ?>
 
-    <!-- Page Content -->
+    <!-- Content -->
     <div class="container">
 
         <div class="row">
@@ -30,62 +30,31 @@ if(!isset($_SESSION['curr_id'])){header("Location: index.php");}
                   $result = $connection->query($query);
                   confirmQuery($result);
                   while($row = $result->fetch_assoc()){
+                    $flag = 1;
+                    $task_list_id = $row['id'];
                     $task_list_title     = $row['listName'];
                     $task_list_e_time    = $row['editTime'];
                     $task_list_c_time    = $row['createTime'];
                 ?>
-                    <!-- Note -->
+                    <!-- TaskList -->
                     <h2>
-                        <a href="#"><?php echo $task_list_title; ?></a>
+                        <a href="task_view.php?t_id=<?php echo $task_list_id ?>"><?php echo $task_list_title; ?></a>
                     </h2>
                     <p><span class="glyphicon glyphicon-time"></span> Created on <?php echo $task_list_c_time; ?></p>
                     <p><span class="glyphicon glyphicon-time"></span> Edited on <?php echo $task_list_e_time; ?></p>
                     <hr>
-                    <!-- <p><?php //echo $note_content; ?></p> -->
-                    <!-- <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> -->
-
-                    <hr>
                 <?php
                   }
-
+                    if(!$flag){
+                      echo "<h2>Nothing to display!</h2>";
+                    }
                 ?>
 <!-- //////////////////////////////////////////////////////////////////////// -->
-                <!-- Second Task Post -->
-                <h2>
-                    <a href="#">Task Post Title</a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php">Start Bootstrap</a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-                <hr>
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-                <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, quasi, fugiat, asperiores harum voluptatum tenetur a possimus nesciunt quod accusamus saepe tempora ipsam distinctio minima dolorum perferendis labore impedit voluptates!</p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
-                <hr>
-
-                <!-- Third Task Post -->
-                <h2>
-                    <a href="#">Task Post Title</a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php">Start Bootstrap</a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-                <hr>
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-                <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, voluptates, voluptas dolore ipsam cumque quam veniam accusantium laudantium adipisci architecto itaque dicta aperiam maiores provident id incidunt autem. Magni, ratione.</p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
-                <hr>
-
 
             </div>
 
-            <!-- Task Sidebar Widgets Column -->
+
+            <!-- Sidebar -->
 <?php include_once('includes_t/sidebar.php') ?>
 
         <!-- Footer -->

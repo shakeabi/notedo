@@ -4,13 +4,11 @@ include_once('connect.php');
 
 <div class="col-md-4">
 
-    <!-- Blog Search Well -->
     <div class="well">
         <a href="add_note.php"><h4><span class="glyphicon glyphicon-plus"></span> Add A Note</h4></a>
 
     </div>
 
-    <!-- Side Widget Well -->
     <div class="well">
         <h4>Sort:</h4>
         <form action="" method="get" enctype="multipart/form-data">
@@ -30,7 +28,6 @@ include_once('connect.php');
 
     </div>
 
-    <!-- Blog Categories Well -->
     <div class="well">
         <h4>Labels</h4>
         <div class="row">
@@ -59,7 +56,6 @@ include_once('connect.php');
             </div>
 
         </div>
-        <!-- /.row -->
     </div>
 
 
@@ -67,6 +63,5 @@ include_once('connect.php');
 </div>
 
 </div>
-<!-- /.row -->
 
 <hr>

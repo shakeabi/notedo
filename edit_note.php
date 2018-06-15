@@ -6,11 +6,35 @@ $error = 0;
 
 date_default_timezone_set('Asia/Kolkata');
 
-   if(isset($_POST['create_note'])) {
+
+   if(isset($_GET['p_id'])){
+       $n_id = $_GET['p_id'];
+   }
+
+     $table = $_SESSION['curr_id'].'notes';
+
+     $query = "SELECT * FROM $table WHERE id = $n_id";
+     $result = $connection->query($query);
+     confirmQuery($result);
+
+     $row = $result->fetch_assoc();
+     $note_id_d     = $row['id'];
+     $note_title_d     = $row['title'];
+     $note_content_d   = $row['noteContent'];
+     $note_priority_d  = $row['priority'];
+     $note_label_d     = $row['labels'];
+     $note_imgPath_d   = $row['imgPath'];
+
+
+
+
+   if(isset($_POST['update_note'])) {
 
             $note_title        = $connection->real_escape_string($_POST['title']);
             $note_priority     = $connection->real_escape_string($_POST['note_priority']);
-
+            if($note_priority==""){
+              $note_priority = $note_priority_d;
+            }
 
             $note_image        = $connection->real_escape_string($_FILES['image']['name']);
             $note_image_temp   = $connection->real_escape_string($_FILES['image']['tmp_name']);
@@ -68,7 +92,7 @@ date_default_timezone_set('Asia/Kolkata');
         }
 
       }else {
-        $note_image = "DEFAULT.jpg";
+        $note_image = $note_imgPath_d;
       }
 
       ///////////////////////////////////////////////////////////////////////
@@ -78,9 +102,11 @@ date_default_timezone_set('Asia/Kolkata');
 
           $table = $_SESSION['curr_id']."notes";
 
-          $query = "INSERT INTO {$table}(title, noteContent, priority, labels, imgPath, editTime, createTime) ";
+          $query = "UPDATE {$table} ";
 
-          $query .= "VALUES('{$note_title}','{$note_content}','{$note_priority}','{$note_label}','{$note_image}','{$note_time}','{$note_time}')";
+          $query .= "SET title='{$note_title}',noteContent='{$note_content}',priority='{$note_priority}',labels='{$note_label}',imgPath='{$note_image}',editTime='{$note_time}' ";
+
+          $query .= "WHERE id = $n_id";
 
           $create_note_query = $connection->query($query);
 
@@ -92,12 +118,14 @@ date_default_timezone_set('Asia/Kolkata');
 
 
 
+
+
    }
 
 
 
-
 ?>
+
 <?php include_once('includes/header.php'); ?>
 <?php include_once('includes/navigation.php'); ?>
 
@@ -108,13 +136,13 @@ date_default_timezone_set('Asia/Kolkata');
 
     <div class="form-group">
        <label for="title">Note Title</label>
-        <input type="text" class="form-control" name="title" required>
+        <input type="text" class="form-control" name="title" value="<?php echo $note_title_d ?>" required>
     </div>
 
        <div class="form-group">
      <label for="priority">Priority</label>
-     <select name="note_priority" class="form-control" id="">
-
+     <select name="note_priority" class="form-control" id="" >
+        <option value="" selected disabled hidden><?php echo $note_priority_d ?></option>
         <option value='1'>1</option>
         <option value='2'>2</option>
         <option value='3'>3</option>
@@ -133,19 +161,19 @@ date_default_timezone_set('Asia/Kolkata');
 
     <div class="form-group">
        <label for="note_label">Note Label</label>
-        <input type="text" class="form-control" name="note_label" required>
+        <input type="text" class="form-control" name="note_label" value="<?php echo $note_label_d ?>" required>
     </div>
 
     <div class="form-group">
        <label for="note_content">Note Content</label>
-       <textarea class="form-control "name="note_content" id="" cols="30" rows="10">
+       <textarea class="form-control "name="note_content" id="" cols="30" rows="10"><?php echo $note_content_d ?>
        </textarea>
     </div>
 
 
 
      <div class="form-group">
-        <input class="btn btn-primary" type="submit" name="create_note" value="Publish note">
+        <input class="btn btn-primary" type="submit" name="update_note" value="Update note">
     </div>
 
 

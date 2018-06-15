@@ -3,7 +3,7 @@
   include_once('functions.php');
   session_start();
   if(!isset($_SESSION['curr_id'])){header("Location: index.php");}
-
+  $flag=0;
  ?>
 
 <?php include_once('includes/header.php') ?>
@@ -11,12 +11,12 @@
     <!-- Navigation -->
 <?php include_once('includes/navigation.php') ?>
 
-    <!-- Page Content -->
+    <!-- Content -->
     <div class="container">
 
         <div class="row">
 
-            <!-- Blog Entries Column -->
+
             <div class="col-md-8">
 
                 <h1 class="page-header">
@@ -45,6 +45,7 @@
                   $result = $connection->query($query);
                   confirmQuery($result);
                   while($row = $result->fetch_assoc()){
+                    $flag = 1;
                     $note_id     = $row['id'];
                     $note_title     = $row['title'];
                     $note_content   = $row['noteContent'];
@@ -74,12 +75,16 @@
                 <?php
                   }
 
+                  if(!$flag){
+                    echo "<h2>Nothing to display!</h2>";
+                  }
+
                 ?>
 
 
             </div>
 
-            <!-- Blog Sidebar Widgets Column -->
+            <!-- Sidebar -->
 <?php include_once('includes/sidebar.php') ?>
 
         <!-- Footer -->
