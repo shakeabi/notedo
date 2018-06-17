@@ -4,7 +4,7 @@ include_once('connect.php');
 function confirmQuery($result) {
   global $connection;
     if(!$result ) {
-
+          echo "The requested userID does not exist.<br>";
           die("QUERY FAILED ." . mysqli_error($connection));
 
 

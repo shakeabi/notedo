@@ -50,7 +50,8 @@
       		labels VARCHAR(1000) NOT NULL,
       		imgPath VARCHAR(1000) NOT NULL,
       		editTime VARCHAR(1000) NOT NULL,
-      		createTime VARCHAR(1000) NOT NULL
+      		createTime VARCHAR(1000) NOT NULL,
+          collabs varchar(8000)
       		)";
       $connection->query($query);
 
@@ -60,8 +61,27 @@
       		id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
           listName VARCHAR(1000) NOT NULL,
       		editTime VARCHAR(1000) NOT NULL,
-      		createTime VARCHAR(1000) NOT NULL
+      		createTime VARCHAR(1000) NOT NULL,
+          collabs varchar(8000)
       		)";
+      $connection->query($query);
+
+      $tableName_tasks = $db_id."list_collabs";
+      $query = "CREATE TABLE IF NOT EXISTS $tableName_tasks(
+          id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+          collabId VARCHAR(1000) NOT NULL,
+          listId VARCHAR(1000) NOT NULL,
+          createTime VARCHAR(1000) NOT NULL
+          )";
+      $connection->query($query);
+
+      $tableName_tasks = $db_id."note_collabs";
+      $query = "CREATE TABLE IF NOT EXISTS $tableName_tasks(
+          id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+          collabId VARCHAR(1000) NOT NULL,
+          noteId VARCHAR(1000) NOT NULL,
+          createTime VARCHAR(1000) NOT NULL
+          )";
       $connection->query($query);
 
       if($flag == 1){
