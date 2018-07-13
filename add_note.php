@@ -60,7 +60,7 @@ date_default_timezone_set('Asia/Kolkata');
         // if everything is ok, try to upload file
         } else {
             if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                echo "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
+                // echo "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
             } else {
                 echo "Sorry, there was an error uploading your file.<br>";
                 $error = 1;

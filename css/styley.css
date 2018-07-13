@@ -248,8 +248,9 @@ a.hiddenanchor{
 	position: absolute;
 	top: 0px;
 	width: 88%;
+	min-width: 300px;
 	padding: 18px 6% 60px 6%;
-	margin: 0 0 35px 0;
+	margin: 0 auto;
 	background: rgb(247, 247, 247);
 	border: 1px solid rgba(147, 184, 189,0.8);
 	-webkit-box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7),	0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
@@ -402,8 +403,10 @@ p.change_link{
 	color: rgb(127, 124, 124);
 	left: 0px;
 	height: 20px;
-	width: 440px;
+	width: 88%;
+	min-width: 300px;
 	padding: 17px 30px 20px 30px;
+	margin: 0 auto;
 	font-size: 16px	;
 	text-align: right;
 	border-top: 1px solid rgb(219, 229, 232);
