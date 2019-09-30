@@ -1,6 +1,6 @@
 # Note.DO
 
-Note.DO is a simple web app to store notes and ToDo-lists.
+Note Do is a simple web app to store notes and ToDo-lists.
 
 ## Features 
 
